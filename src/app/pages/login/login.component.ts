@@ -31,6 +31,7 @@ export class LoginComponent {
       next: value => {this.toastrService.success("Login realizado com sucesso!")},
       error: value => {this.toastrService.error("Verifique os dados e tente novamente !")}
     })
+    this.router.navigate(['usuarios']);
   }
 
   navigate(){
