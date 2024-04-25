@@ -4,7 +4,10 @@
     <h2>{{title}} </h2>
     <ng-content></ng-content>
     <div class="button-wrapper">
-      <button (click)="submit()" [disabled]="disablePrimaryButton" class="button-primary">{{primaryBtnText}}</button>
+      <button (click)="submit()" [disabled]="disablePrimaryButton" class="button-primary">
+        <span *ngIf="!showSpinner">{{primaryBtnText}}</span>
+        <mat-spinner *ngIf="showSpinner"  diameter="20" color="accent"></mat-spinner>
+      </button>
       <div class="divider">
         <div></div>
         <span>or</span>

@@ -16,6 +16,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  showSpinner: boolean = false;
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -26,14 +27,21 @@ export class LoginComponent {
       password: new FormControl("", [Validators.required, Validators.minLength(6)]),
     })
   }
-  submit(){
+  submit() {
+    this.showSpinner = true;
     this.loginService.login(this.loginForm.value.login, this.loginForm.value.password).subscribe({
-      next: value => {this.toastrService.success("Login realizado com sucesso!")},
-      error: value => {this.toastrService.error("Verifique os dados e tente novamente !")}
-    })
-    this.router.navigate(['usuarios']);
+      next: value => {
+        this.toastrService.success("Login realizado com sucesso!");
+        setTimeout(() => {
+          this.router.navigate(['usuarios']);
+        }, 2000);
+      },
+      error: value => {
+        this.toastrService.error("Verifique os dados e tente novamente !");
+        this.showSpinner = false;
+      }
+    });
   }
-
   navigate(){
     this.router.navigate(['cadastrar']);
   }

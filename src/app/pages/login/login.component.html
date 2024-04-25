@@ -1,6 +1,9 @@
 <app-default-login-layout
   title="Faça seu login"
-  primaryBtnText="Acessar" (submit)="submit()" (navigate)="navigate()"
+  primaryBtnText="Acessar"
+  [showSpinner]="showSpinner"
+  (submit)="submit()"
+  (navigate)="navigate()"
   [disablePrimaryButton]="!loginForm.valid"
   secondaryBtnText="Cadastre-se agora">
   <form [formGroup]="loginForm">
