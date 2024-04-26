@@ -7,10 +7,13 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import {MatFormField} from "@angular/material/form-field";
+import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
+import {MatCard, MatCardContent} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
+import {MatGridList} from "@angular/material/grid-list";
 
 @Component({
   selector: 'app-create-address-dialog',
@@ -24,7 +27,14 @@ import {MatButton} from "@angular/material/button";
     MatDialogTitle,
     MatInput,
     MatButton,
-    MatDialogClose
+    MatDialogClose,
+    MatCard,
+    MatCardContent,
+    MatIcon,
+    MatLabel,
+    MatIcon,
+    MatHint,
+    MatGridList
   ],
   styleUrls: ['./create-address-dialog.component.scss']
 })

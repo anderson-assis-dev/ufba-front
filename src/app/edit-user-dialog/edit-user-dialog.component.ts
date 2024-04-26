@@ -1,17 +1,20 @@
 import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
-  MatDialogActions, MatDialogClose,
+  MatDialogActions, MatDialogClose, MatDialogContainer,
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle,
 
 
 } from '@angular/material/dialog';
-import {MatFormField} from "@angular/material/form-field";
+import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatButton} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
+import {MatIcon} from "@angular/material/icon";
+import {MatCard, MatCardContent} from "@angular/material/card";
+import {MatGridList} from "@angular/material/grid-list";
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -25,7 +28,14 @@ import {MatInput} from "@angular/material/input";
     MatDialogTitle,
     MatInput,
     MatDialogActions,
-    MatDialogClose
+    MatDialogClose,
+    MatIcon,
+    MatHint,
+    MatLabel,
+    MatCard,
+    MatCardContent,
+    MatGridList,
+    MatDialogContainer
   ],
   styleUrls: ['./edit-user-dialog.component.scss']
 })

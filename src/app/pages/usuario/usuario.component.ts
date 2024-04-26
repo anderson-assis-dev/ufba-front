@@ -106,6 +106,7 @@ export class UsuarioComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const headers = this.createHeaders();
+
         const body = {
           name: result.name,
           login: result.login,
@@ -134,8 +135,9 @@ export class UsuarioComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const headers = this.createHeaders();
+        console.log(result);
         const body = {
-          postal_code: result.cep,
+          postalCode: result.cep,
           state: result.estado,
           street: result.rua,
           city: result.cidade,
@@ -202,6 +204,9 @@ export class UsuarioComponent implements OnInit {
   }
 
   visualizarEnderecos(user: User): void {
+    this.openCreateAddressDialog(user);
+  }
+  cadastrarEnderecos(user: User): void {
     this.openCreateAddressDialog(user);
   }
 }

@@ -10,6 +10,14 @@ html,body {
   height: 100%;
 
 }
-
+form {
+  display: contents !important;
+}
+.mat-mdc-form-field {
+  margin: 20px;
+}
+.mat-mdc-dialog-surface mdc-dialog__surface, .mdc-dialog__container{
+  border-radius: 40px !important;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

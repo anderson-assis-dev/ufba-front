@@ -1,27 +1,33 @@
-<h2 mat-dialog-title>Editar usuário</h2>
 <mat-dialog-content class="mat-typography">
-  <form>
-    <div>
-      <label for="name">Nome</label>
-      <mat-form-field>
-        <input matInput placeholder="Nome" [(ngModel)]="user.name" name="name" id="name">
-      </mat-form-field>
-    </div>
-    <div>
-      <label for="email">Email</label>
-      <mat-form-field>
-        <input matInput placeholder="Email" [(ngModel)]="user.email" name="email" id="email">
-      </mat-form-field>
-    </div>
-    <div>
-      <label for="login">Login</label>
-      <mat-form-field>
-        <input matInput placeholder="Login" [(ngModel)]="user.login" name="login" id="login">
-      </mat-form-field>
-    </div>
-  </form>
+  <mat-card>
+    <mat-card-content>Editar usuário</mat-card-content>
+
+    <form>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="Nome" [(ngModel)]="user.name" name="name" id="name">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput placeholder="Nome" [(ngModel)]="user.email" name="email" id="email">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Login</mat-label>
+          <input matInput placeholder="Nome" [(ngModel)]="user.login" name="login" id="login">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+
+
+
+    </form>
+  </mat-card>
+
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close (click)="onCancel()">Cancelar</button>
+  <button mat-button="" mat-dialog-close="" mat-ripple-loader-class-name="mat-mdc-button-ripple"  (click)="onCancel()">Cancelar</button>
   <button mat-button (click)="onSave()" cdkFocusInitial>Salvar</button>
 </mat-dialog-actions>
