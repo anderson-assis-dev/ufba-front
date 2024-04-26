@@ -27,7 +27,7 @@ export class CadastroComponent {
     private toastrService: ToastrService
   ) {
     this.cadastroForm = new FormGroup({
-      nome: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
       login: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),

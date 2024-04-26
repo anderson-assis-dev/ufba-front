@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Editar usuário</h2>
+<mat-dialog-content class="mat-typography">
+  <form>
+    <div>
+      <label for="name">Nome</label>
+      <mat-form-field>
+        <input matInput placeholder="Nome" [(ngModel)]="user.name" name="name" id="name">
+      </mat-form-field>
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <mat-form-field>
+        <input matInput placeholder="Email" [(ngModel)]="user.email" name="email" id="email">
+      </mat-form-field>
+    </div>
+    <div>
+      <label for="login">Login</label>
+      <mat-form-field>
+        <input matInput placeholder="Login" [(ngModel)]="user.login" name="login" id="login">
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onSave()" cdkFocusInitial>Salvar</button>
+</mat-dialog-actions>

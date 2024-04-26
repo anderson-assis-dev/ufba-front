@@ -1,0 +1,14 @@
+.mat-dialog-content form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-dialog-content form div {
+  flex: 1;
+  margin-right: 20px; /* Espaçamento entre os campos */
+}
+
+/* Ajuste para que o último div não tenha margem direita */
+.mat-dialog-content form div:last-child {
+  margin-right: 0;
+}
