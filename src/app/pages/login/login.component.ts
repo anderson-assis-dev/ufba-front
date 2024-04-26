@@ -43,7 +43,7 @@ export class LoginComponent {
     });
   }
   navigate(){
-    this.router.navigate(['cadastrar']);
+    this.router.navigate(['cadastro']);
   }
 
   protected readonly onsubmit = onsubmit;
