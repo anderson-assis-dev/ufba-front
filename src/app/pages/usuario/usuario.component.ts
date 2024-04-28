@@ -20,6 +20,7 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/mat
 import {LayoutGeralComponent} from "../../layout-geral/layout-geral.component";
 import {MatIconButton} from "@angular/material/button";
 import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
+import {ListAddressDialogComponent} from "../../list-address-dialog/list-address-dialog.component";
 
 interface User {
   id: number;
@@ -125,7 +126,13 @@ export class UsuarioComponent implements OnInit {
       }
     });
   }
+  private openListAddressDialog(user: User): void {
+    const dialogRef = this.dialog.open(ListAddressDialogComponent, {
+      width: '1000px',
+      data: { user }
+    });
 
+  }
   private openCreateAddressDialog(user: User): void {
     const dialogRef = this.dialog.open(CreateAddressDialogComponent, {
       width: '1000px',
@@ -204,7 +211,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   visualizarEnderecos(user: User): void {
-    this.openCreateAddressDialog(user);
+    this.openListAddressDialog(user);
   }
   cadastrarEnderecos(user: User): void {
     this.openCreateAddressDialog(user);
