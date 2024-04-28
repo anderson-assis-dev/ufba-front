@@ -26,6 +26,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {EditUserDialogComponent} from "../edit-user-dialog/edit-user-dialog.component";
+import {EditAddressDialogComponent} from "../edit-address-dialog/edit-address-dialog.component";
 interface Address {
   id: number;
   postalCode: string;
@@ -121,9 +123,39 @@ export class ListAddressDialogComponent {
   deleteAddress(address: Address) {
     this.openConfirmDialog(address);
   }
+  private openEditDialog(address: Address): void {
+    const dialogRef = this.dialog.open(EditAddressDialogComponent, {
+      width: '1000px',
+      data: { address }
+    });
 
-  editAddress(address: any) {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const headers = this.createHeaders();
 
+        const body = {
+          city: result.city,
+          postalCode: result.postalCode,
+          state: result.state,
+          street: result.street,
+          user_id: result.user_id,
+        };
+
+        this.http.put(`http://localhost:8080/api/address/${address.id}`, body, { headers }).subscribe({
+          next: () => {
+            this.loadAddress();
+            this.showSuccessToast('Endereço editado com sucesso!');
+          },
+          error: () => {
+            this.showErrorToast('Erro ao editar Endereço. Por favor, tente novamente mais tarde.');
+          }
+        });
+      }
+    });
+  }
+
+  editAddress(address: Address) {
+    this.openEditDialog(address);
   }
   private openConfirmDialog(address: Address): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

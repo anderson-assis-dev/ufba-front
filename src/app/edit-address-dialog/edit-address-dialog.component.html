@@ -1,0 +1,28 @@
+<mat-dialog-content class="mat-typography">
+  <mat-card>
+    <mat-card-content>Editar Endereco</mat-card-content>
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>CEP</mat-label>
+        <input matInput placeholder="CEP" [(ngModel)]="address.postalCode" name="postalCode" id="postalCode" (blur)="fillAddress()">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rua</mat-label>
+        <input matInput placeholder="Rua" [(ngModel)]="address.street" name="street" id="street">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Cidade</mat-label>
+        <input matInput placeholder="Cidade" [(ngModel)]="address.city" name="city" id="city">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <input matInput placeholder="Estado" [(ngModel)]="address.state" name="state" id="state">
+      </mat-form-field>
+    </form>
+  </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onSave()" cdkFocusInitial>Salvar</button>
+</mat-dialog-actions>
