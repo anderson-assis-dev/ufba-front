@@ -36,6 +36,10 @@ export class CadastroComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
+    this.cadastroForm.get('name')?.valueChanges.subscribe((name) => {
+      const login = name.toLowerCase().replace(/\s+/g, '.');
+      this.cadastroForm.get('login')?.setValue(login);
+    });
   }
   submit() {
     this.cadastroService.cadastro(this.cadastroForm.value).subscribe({
