@@ -1,7 +1,12 @@
 form{
   width: 100%;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
-  gap: 24px;
-  margin-bottom: 34px;
+  margin-top: -44px;
+}
+mat-progress-bar.strong {
+  background-color: green;
+}
+mat-progress-bar.weak {
+  background-color: red;
 }

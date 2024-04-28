@@ -6,6 +6,8 @@ import { CadastroService } from '../../service/cadastro.service';
 import { LoginService } from '../../service/login.service';
 import {PrimaryInputComponent} from "../../componentes/primary-input/primary-input.component";
 import {DefaultLoginLayoutComponent} from "../../componentes/default-login-layout/default-login-layout.component";
+import {MatProgressBar} from "@angular/material/progress-bar";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-cadastro',
@@ -14,7 +16,9 @@ import {DefaultLoginLayoutComponent} from "../../componentes/default-login-layou
   imports: [
     PrimaryInputComponent,
     ReactiveFormsModule,
-    DefaultLoginLayoutComponent
+    DefaultLoginLayoutComponent,
+    MatProgressBar,
+    NgClass
   ],
   styleUrls: ['./cadastro.component.scss']
 })
@@ -60,5 +64,15 @@ export class CadastroComponent {
   }
   navigate() {
     this.router.navigate(['login']);
+  }
+
+  getPasswordStrength(password: string): number {
+
+    return password.length >= 8 ? 100 : (password.length / 8) * 100; //
+  }
+
+  calculatePasswordStrength(): number {
+    const password = this.cadastroForm.get('password')?.value;
+    return this.getPasswordStrength(password);
   }
 }
