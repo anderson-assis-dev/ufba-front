@@ -37,7 +37,10 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
     </table>
-
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Selecione a quantidade de endereços por página">
+    </mat-paginator>
   </mat-card>
 
 </mat-dialog-content>

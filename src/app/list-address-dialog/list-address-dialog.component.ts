@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatCard, MatCardContent} from "@angular/material/card";
@@ -28,6 +28,7 @@ import {map} from "rxjs/operators";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 import {EditUserDialogComponent} from "../edit-user-dialog/edit-user-dialog.component";
 import {EditAddressDialogComponent} from "../edit-address-dialog/edit-address-dialog.component";
+import {MatPaginator} from "@angular/material/paginator";
 interface Address {
   id: number;
   postalCode: string;
@@ -61,7 +62,8 @@ interface Address {
     MatRow,
     MatRowDef,
     MatTable,
-    MatHeaderCellDef
+    MatHeaderCellDef,
+    MatPaginator
   ],
   templateUrl: './list-address-dialog.component.html',
   styleUrl: './list-address-dialog.component.scss'
@@ -78,11 +80,14 @@ export class ListAddressDialogComponent {
   }
   dataSource = new MatTableDataSource<Address>();
   displayedColumns: string[] = ['id', 'postalCode', 'city', 'street', 'state', 'actions'];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
     this.loadAddress();
   }
-
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
   private getToken(): string | null {
     return sessionStorage.getItem('auth-token');
   }
@@ -97,30 +102,24 @@ export class ListAddressDialogComponent {
   private loadAddress(): void {
     const headers = this.createHeaders();
     if (headers) {
-      this.getAddress(headers).subscribe(data => {
-        console.log(data);
-        this.dataSource.data = data;
+      this.getAddress().subscribe((data: any) => {
+        this.dataSource.data = data.content;
       });
     }
   }
-  private getAddress(headers: HttpHeaders): Observable<Address[]> {
-    return this.http.get<any[]>(`http://localhost:8080/api/address/${this.user?.id}`, { headers }).pipe(
-      map(address => address.map(address => ({
-        id: address?.id,
-        postalCode: address?.postalCode,
-        city: address?.city,
-        street: address?.street,
-        state: address?.state,
-        user_id: address?.user_id,
-      })))
-    );
+
+  private getAddress(): Observable<Address[]> {
+    const headers = this.createHeaders();
+    return this.http.get<any>(`http://localhost:8080/api/address/${this.user?.id}`, {
+      headers
+    });
   }
   onCancel() {
     this.dialogRef.close(null);
 
   }
 
-  deleteAddress(address: Address) {
+  public deleteAddress(address: Address) {
     this.openConfirmDialog(address);
   }
   private openEditDialog(address: Address): void {
@@ -154,7 +153,7 @@ export class ListAddressDialogComponent {
     });
   }
 
-  editAddress(address: Address) {
+  public editAddress(address: Address) {
     this.openEditDialog(address);
   }
   private openConfirmDialog(address: Address): void {

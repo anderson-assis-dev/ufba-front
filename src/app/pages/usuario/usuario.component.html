@@ -45,6 +45,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
       </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Selecione a quantidade de usuários por página">
+      </mat-paginator>
     </mat-card-content>
   </mat-card>
 </app-layout-geral>

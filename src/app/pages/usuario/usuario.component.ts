@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
-  MatCell,
-  MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow,
-  MatRowDef, MatTable,
+  MatCell, MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable,
   MatTableDataSource
 } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
-import { EditUserDialogComponent } from '../../edit-user-dialog/edit-user-dialog.component';
-import {MatIcon} from "@angular/material/icon";
+import { MatPaginator } from '@angular/material/paginator';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {LayoutGeralComponent} from "../../layout-geral/layout-geral.component";
+import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
-import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
+import {EditUserDialogComponent} from "../../edit-user-dialog/edit-user-dialog.component";
 import {ListAddressDialogComponent} from "../../list-address-dialog/list-address-dialog.component";
+import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
+import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
 
 interface User {
   id: number;
@@ -35,34 +34,40 @@ interface User {
   templateUrl: './usuario.component.html',
   standalone: true,
   imports: [
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatRowDef,
-    MatRow,
-    MatIcon,
-    MatCellDef,
-    MatCell,
-    MatHeaderCellDef,
-    MatHeaderCell,
-    MatColumnDef,
-    MatTable,
     MatCardContent,
     MatCardTitle,
     MatCardHeader,
-    LayoutGeralComponent,
     MatCard,
-    MatIconButton
+    LayoutGeralComponent,
+    MatTable,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatIcon,
+    MatHeaderRow,
+    MatPaginator,
+    MatRow,
+    MatRowDef,
+    MatHeaderRowDef,
+    MatIconButton,
+    MatCellDef,
+    MatHeaderCellDef
   ],
   styleUrls: ['./usuario.component.scss']
 })
 export class UsuarioComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   displayedColumns: string[] = ['id', 'name', 'email', 'login', 'role', 'actions'];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private http: HttpClient, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadUsers();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 
   private getToken(): string | null {
@@ -79,23 +84,17 @@ export class UsuarioComponent implements OnInit {
   private loadUsers(): void {
     const headers = this.createHeaders();
     if (headers) {
-      this.getUsers(headers).subscribe(data => {
-        console.log(data);
-        this.dataSource.data = data;
+      this.getUsers().subscribe(data => {
+        this.dataSource.data = data.content;
       });
     }
   }
 
-  private getUsers(headers: HttpHeaders): Observable<User[]> {
-    return this.http.get<any[]>('http://localhost:8080/api/users', { headers }).pipe(
-      map(users => users.map(user => ({
-        id: user?.id,
-        name: user?.name,
-        email: user?.email,
-        login: user?.login,
-        role: user?.role
-      })))
-    );
+  private getUsers(): Observable<any> {
+    const headers = this.createHeaders();
+    return this.http.get<any>('http://localhost:8080/api/users', {
+      headers
+    });
   }
 
   private openEditDialog(user: User): void {
