@@ -13,6 +13,9 @@ export class LoginService {
     return this.http.post<LoginResponseType>("http://localhost:8080/auth/login",{login, password}).pipe(
       tap((value) => {
         sessionStorage.setItem("auth-token", value.token)
+        sessionStorage.setItem("name", value.name)
+        sessionStorage.setItem("id", value.id)
+        sessionStorage.setItem("role", value.role)
       })
     );
   }

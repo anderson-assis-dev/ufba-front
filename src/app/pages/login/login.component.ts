@@ -17,6 +17,8 @@ import {ToastrService} from "ngx-toastr";
 export class LoginComponent {
   loginForm!: FormGroup;
   showSpinner: boolean = false;
+  // @ts-ignore
+  role: string = undefined;
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -31,9 +33,19 @@ export class LoginComponent {
     this.showSpinner = true;
     this.loginService.login(this.loginForm.value.login, this.loginForm.value.password).subscribe({
       next: value => {
+        // @ts-ignore
+        this.role =  sessionStorage.getItem('role');
+        console.log(this.role)
         this.toastrService.success("Login realizado com sucesso!");
         setTimeout(() => {
-          this.router.navigate(['usuarios']);
+          if(this.role == "ADMIN"){
+
+            this.router.navigate(['usuarios']);
+          }
+          else{
+            this.router.navigate(['enderecos']);
+          }
+
         }, 2000);
       },
       error: value => {
