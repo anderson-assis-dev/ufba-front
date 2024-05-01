@@ -37,7 +37,7 @@ export class CadastroComponent {
       name: new FormControl('', [Validators.required]),
       login: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      role: new FormControl('USER', [Validators.required]),
+      role: new FormControl('ADMIN', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
     this.cadastroForm.get('name')?.valueChanges.subscribe((name) => {

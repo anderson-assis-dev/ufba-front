@@ -2,11 +2,14 @@ form{
   width: 100%;
   display: flex !important;
   flex-direction: column;
-  margin-top: -44px;
+  margin-top: -64px;
 }
 mat-progress-bar.strong {
   background-color: green;
 }
 mat-progress-bar.weak {
   background-color: red;
+}
+.button-register{
+  margin-bottom: -60px;
 }

@@ -49,10 +49,5 @@
 
 
   </form>
-  <mat-progress-bar
-    mode="determinate"
-    [value]="calculatePasswordStrength()"
-    [ngClass]="{'strong': getPasswordStrength(cadastroForm.get('password')?.value) >= 70, 'weak': getPasswordStrength(cadastroForm.get('password')?.value) < 70}">
 
-  </mat-progress-bar>
 </app-default-login-layout>
