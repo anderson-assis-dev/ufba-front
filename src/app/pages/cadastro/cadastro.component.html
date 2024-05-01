@@ -31,6 +31,12 @@
     >
         <img src=""/>
       </app-primary-input>
+    <app-primary-select
+      label="Função"
+      inputName="role"
+      [options]="[{ value: 'ADMIN', label: 'Administrador' }, { value: 'USER', label: 'Usuário' }]">
+      <img src=""/>
+    </app-primary-select>
 
     <app-primary-input
       formControlName="password"
@@ -43,5 +49,10 @@
 
 
   </form>
-  <mat-progress-bar mode="determinate" [value]="calculatePasswordStrength()" [ngClass]="{'strong': getPasswordStrength(cadastroForm.get('password')?.value) >= 70, 'weak': getPasswordStrength(cadastroForm.get('password')?.value) < 70}"></mat-progress-bar>
+  <mat-progress-bar
+    mode="determinate"
+    [value]="calculatePasswordStrength()"
+    [ngClass]="{'strong': getPasswordStrength(cadastroForm.get('password')?.value) >= 70, 'weak': getPasswordStrength(cadastroForm.get('password')?.value) < 70}">
+
+  </mat-progress-bar>
 </app-default-login-layout>

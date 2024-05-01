@@ -9,7 +9,6 @@ export class CadastroService {
 
   constructor(private http: HttpClient) {}
   cadastro(body: any) {
-    body.role = "ADMIN";
     return this.http.post<CadastroResponseType>("http://localhost:8080/api/users",body);
   }
 }

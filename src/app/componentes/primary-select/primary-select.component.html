@@ -1,0 +1,11 @@
+<div class="input-wrapper">
+  <label [for]="inputName">{{ label }}</label>
+  <div class="input-content">
+    <select [id]="inputName" (change)="onChange($event)">
+      <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+    </select>
+    <div class="icon">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

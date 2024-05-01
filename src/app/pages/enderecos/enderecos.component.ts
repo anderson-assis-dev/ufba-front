@@ -17,8 +17,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LayoutGeralComponent} from "../../layout-geral/layout-geral.component";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
+import {NgIf} from "@angular/common";
 interface Address {
   id: number;
   postalCode: string;
@@ -48,7 +49,9 @@ interface Address {
     MatRow,
     MatRowDef,
     MatTable,
-    MatHeaderCellDef
+    MatHeaderCellDef,
+    NgIf,
+    MatButton
   ],
   templateUrl: './enderecos.component.html',
   styleUrl: './enderecos.component.scss'

@@ -8,22 +8,25 @@ import {PrimaryInputComponent} from "../../componentes/primary-input/primary-inp
 import {DefaultLoginLayoutComponent} from "../../componentes/default-login-layout/default-login-layout.component";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {NgClass} from "@angular/common";
-
+import {PrimarySelectComponent} from "../../componentes/primary-select/primary-select.component";
 @Component({
   selector: 'app-cadastro',
-  templateUrl: './cadastro.component.html',
+  templateUrl: "./cadastro.component.html",
   standalone: true,
   imports: [
     PrimaryInputComponent,
     ReactiveFormsModule,
     DefaultLoginLayoutComponent,
     MatProgressBar,
-    NgClass
+    NgClass,
+    PrimarySelectComponent
   ],
   styleUrls: ['./cadastro.component.scss']
 })
 export class CadastroComponent {
   cadastroForm!: FormGroup;
+  // @ts-ignore
+  role: string = undefined;
   constructor(
     private router: Router,
     private cadastroService: CadastroService,
@@ -34,6 +37,7 @@ export class CadastroComponent {
       name: new FormControl('', [Validators.required]),
       login: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
+      role: new FormControl('USER', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
     this.cadastroForm.get('name')?.valueChanges.subscribe((name) => {
@@ -53,28 +57,30 @@ export class CadastroComponent {
     });
   }
   private autenticarAposCadastro(login: string, password: string) {
-    console.log(login, password)
     this.loginService.login(login, password).subscribe({
       next: () => {
+        // @ts-ignore
+        this.role =  sessionStorage.getItem('role');
         setTimeout(() => {
-          this.router.navigate(['usuarios']);
+          if(this.role == "ADMIN"){
+            this.router.navigate(['usuarios']);
+          }
+          else{
+            this.router.navigate(['enderecos']);
+          }
         }, 2000);
       },
       error: () => {
         this.toastrService.error('Erro ao autenticar após o cadastro.');
       }
     });
-
   }
   navigate() {
     this.router.navigate(['login']);
   }
-
   getPasswordStrength(password: string): number {
-
     return password.length >= 8 ? 100 : (password.length / 8) * 100; //
   }
-
   calculatePasswordStrength(): number {
     const password = this.cadastroForm.get('password')?.value;
     return this.getPasswordStrength(password);

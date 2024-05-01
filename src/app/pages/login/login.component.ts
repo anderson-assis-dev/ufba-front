@@ -35,7 +35,6 @@ export class LoginComponent {
       next: value => {
         // @ts-ignore
         this.role =  sessionStorage.getItem('role');
-        console.log(this.role)
         this.toastrService.success("Login realizado com sucesso!");
         setTimeout(() => {
           if(this.role == "ADMIN"){
