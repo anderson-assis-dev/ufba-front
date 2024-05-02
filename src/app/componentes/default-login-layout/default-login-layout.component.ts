@@ -20,6 +20,8 @@ export class DefaultLoginLayoutComponent {
   @Input() disablePrimaryButton: boolean = true;
   @Output("submit") onSubmit = new EventEmitter();
   @Input() showSpinner: boolean = false;
+  @Input() showLogo: boolean = true;
+
   submit(){
     this.showSpinner = true;
     this.onSubmit.emit();

@@ -2,6 +2,7 @@
   title="Cadastre-se Aqui"
   primaryBtnText="Cadastrar" (submit)="submit()" (navigate)="navigate()"
   [disablePrimaryButton]="!cadastroForm.valid"
+  [showLogo]="false"
   secondaryBtnText="Acessar agora">
   <form [formGroup]="cadastroForm">
     <app-primary-input
@@ -46,8 +47,13 @@
     >
       <img src=""/>
     </app-primary-input>
+    <mat-progress-bar
+      mode="determinate"
+      [value]="calculatePasswordStrength()"
+      [ngClass]="{'strong': getPasswordStrength(cadastroForm.get('password')?.value) >= 70, 'weak': getPasswordStrength(cadastroForm.get('password')?.value) < 70}">
 
-
+    </mat-progress-bar>
   </form>
+
 
 </app-default-login-layout>

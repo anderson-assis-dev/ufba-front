@@ -6,9 +6,12 @@ form{
 }
 mat-progress-bar.strong {
   background-color: green;
+  margin-top: 10px;
+
 }
 mat-progress-bar.weak {
   background-color: red;
+  margin-top: 10px;
 }
 .button-register{
   margin-bottom: -60px;
