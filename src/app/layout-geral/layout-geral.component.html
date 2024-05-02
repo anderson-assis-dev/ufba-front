@@ -2,10 +2,15 @@
   <section class="form-section">
     <img src="assets/images/logo.png" width="50">
     <h2>{{title}} </h2>
-    <div class="button-wrapper">
-      <button (click)="submit()"  class="button-secondary">{{primaryBtnText}}</button>
+    <div class="button-wrapper" *ngIf="showItemAdmin">
+      <button (click)="usuarios()"  class="button-secondary">Usuários</button>
     </div>
-
+    <div class="button-wrapper"  *ngIf="showItemUser">
+      <button (click)="enderecos()"  class="button-secondary">Endereços</button>
+    </div>
+    <div class="button-wrapper">
+      <button (click)="sair()"  class="button-secondary">Sair</button>
+    </div>
   </section>
   <section class="main-section">
     <ng-content></ng-content>
