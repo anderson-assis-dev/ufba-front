@@ -29,6 +29,7 @@ import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component
 import {EditUserDialogComponent} from "../edit-user-dialog/edit-user-dialog.component";
 import {EditAddressDialogComponent} from "../edit-address-dialog/edit-address-dialog.component";
 import {MatPaginator} from "@angular/material/paginator";
+import {NgIf} from "@angular/common";
 interface Address {
   id: number;
   postalCode: string;
@@ -63,7 +64,8 @@ interface Address {
     MatRowDef,
     MatTable,
     MatHeaderCellDef,
-    MatPaginator
+    MatPaginator,
+    NgIf
   ],
   templateUrl: './list-address-dialog.component.html',
   styleUrl: './list-address-dialog.component.scss'
