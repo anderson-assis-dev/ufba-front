@@ -20,6 +20,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
 import {NgIf} from "@angular/common";
+import {UtilService} from "../../service/util.service";
 interface Address {
   id: number;
   postalCode: string;
@@ -59,6 +60,7 @@ interface Address {
 export class EnderecosComponent {
   constructor(
     private http: HttpClient, private dialog: MatDialog, private snackBar: MatSnackBar,
+    private utilService: UtilService
   ) {}
   // @ts-ignore
   user_id: number = sessionStorage.getItem('id');
@@ -73,19 +75,10 @@ export class EnderecosComponent {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
-  private getToken(): string | null {
-    return sessionStorage.getItem('auth-token');
-  }
 
-  private createHeaders(): HttpHeaders {
-    const token = this.getToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  }
 
   private loadAddress(): void {
-    const headers = this.createHeaders();
+    const headers = this.utilService.createHeaders();
     if (headers) {
       this.getAddress().subscribe((data: any) => {
         this.dataSource.data = data.content;
@@ -94,7 +87,7 @@ export class EnderecosComponent {
   }
 
   private getAddress(): Observable<Address[]> {
-    const headers = this.createHeaders();
+    const headers = this.utilService.createHeaders();
     return this.http.get<any>(`http://localhost:8080/api/address/${this.user_id}`, {
       headers
     });
@@ -111,7 +104,7 @@ export class EnderecosComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const headers = this.createHeaders();
+        const headers = this.utilService.createHeaders();
 
         const body = {
           city: result.city,
@@ -146,7 +139,7 @@ export class EnderecosComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const headers = this.createHeaders();
+        const headers = this.utilService.createHeaders();
 
         this.http.delete(`http://localhost:8080/api/address/${address?.id}`, { headers }).subscribe({
           next: () => {
@@ -175,7 +168,7 @@ export class EnderecosComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const headers = this.createHeaders();
+        const headers = this.utilService.createHeaders();
         console.log(result);
         const body = {
           postalCode: result.cep,

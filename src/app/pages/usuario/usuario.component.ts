@@ -20,6 +20,7 @@ import {EditUserDialogComponent} from "../../edit-user-dialog/edit-user-dialog.c
 import {ListAddressDialogComponent} from "../../list-address-dialog/list-address-dialog.component";
 import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
+import {UtilService} from "../../service/util.service";
 
 interface User {
   id: number;
@@ -60,7 +61,11 @@ export class UsuarioComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'login', 'role', 'actions'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private http: HttpClient, private dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    private http: HttpClient,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private utilService: UtilService) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -70,19 +75,9 @@ export class UsuarioComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  private getToken(): string | null {
-    return sessionStorage.getItem('auth-token');
-  }
-
-  private createHeaders(): HttpHeaders {
-    const token = this.getToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  }
 
   private loadUsers(): void {
-    const headers = this.createHeaders();
+    const headers = this.utilService.createHeaders();
     if (headers) {
       this.getUsers().subscribe(data => {
         this.dataSource.data = data.content;
@@ -91,7 +86,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   private getUsers(): Observable<any> {
-    const headers = this.createHeaders();
+    const headers = this.utilService.createHeaders();
     return this.http.get<any>('http://localhost:8080/api/users', {
       headers
     });
@@ -105,7 +100,7 @@ export class UsuarioComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const headers = this.createHeaders();
+        const headers = this.utilService.createHeaders();
 
         const body = {
           name: result.name,
@@ -140,7 +135,7 @@ export class UsuarioComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const headers = this.createHeaders();
+        const headers = this.utilService.createHeaders();
         console.log(result);
         const body = {
           postalCode: result.cep,
@@ -172,7 +167,7 @@ export class UsuarioComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const headers = this.createHeaders();
+        const headers = this.utilService.createHeaders();
 
         this.http.delete(`http://localhost:8080/api/users/${user.id}`, { headers }).subscribe({
           next: () => {
