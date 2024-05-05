@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions, MatDialogClose,
@@ -14,7 +14,7 @@ import {MatButton} from "@angular/material/button";
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {MatGridList} from "@angular/material/grid-list";
-
+import {AddressService} from "../service/address.service";
 @Component({
   selector: 'app-create-address-dialog',
   templateUrl: './create-address-dialog.component.html',
@@ -40,11 +40,13 @@ import {MatGridList} from "@angular/material/grid-list";
 })
 export class CreateAddressDialogComponent {
   address: any = {};
+  @ViewChild('map') mapElement: ElementRef | undefined;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreateAddressDialogComponent>,
-    private http: HttpClient
+    private http: HttpClient,
+    private addressService: AddressService
   ) {}
 
   fillAddress() {
@@ -58,13 +60,13 @@ export class CreateAddressDialogComponent {
           this.address.rua = data.logradouro;
           this.address.cidade = data.localidade;
           this.address.estado = data.uf;
+          this.addressService.showMap(data.localidade, data.uf, this.mapElement);
         },
         error => {
           console.log('Erro ao consultar o CEP', error);
         }
       );
   }
-
   onCancel() {
     this.dialogRef.close();
   }

@@ -12,3 +12,11 @@
 .mat-dialog-content form div:last-child {
   margin-right: 0;
 }
+#map{
+  position: absolute;
+  /* overflow: visible !important; */
+  height: 500px;
+  width: 100%;
+  /* margin-top: 100px; */
+  padding: 10px;
+}

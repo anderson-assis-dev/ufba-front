@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -12,6 +12,7 @@ import {MatButton} from "@angular/material/button";
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {AddressService} from "../service/address.service";
 
 @Component({
   selector: 'app-edit-address-dialog',
@@ -32,15 +33,24 @@ import {MatInput} from "@angular/material/input";
   templateUrl: './edit-address-dialog.component.html',
   styleUrl: './edit-address-dialog.component.scss'
 })
-export class EditAddressDialogComponent {
+export class EditAddressDialogComponent implements OnInit {
   address: any = {};
+  @ViewChild('map') mapElement: ElementRef | undefined;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditAddressDialogComponent>,
-    private http: HttpClient
+    private http: HttpClient,
+    private addressService: AddressService
+
   ) {
     this.address = { ...data.address };
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.addressService.showMap(this.address.city, this.address.state, this.mapElement);
+    }, 2000);
   }
 
   fillAddress() {
@@ -54,6 +64,8 @@ export class EditAddressDialogComponent {
           this.address.street = data.logradouro;
           this.address.city = data.localidade;
           this.address.state = data.uf;
+          this.addressService.showMap(data.localidade, data.uf, this.mapElement);
+
         },
         error => {
           console.log('Erro ao consultar o CEP', error);
