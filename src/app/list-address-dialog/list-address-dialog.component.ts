@@ -30,6 +30,7 @@ import {EditUserDialogComponent} from "../edit-user-dialog/edit-user-dialog.comp
 import {EditAddressDialogComponent} from "../edit-address-dialog/edit-address-dialog.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {NgIf} from "@angular/common";
+import {AddressService} from "../service/address.service";
 interface Address {
   id: number;
   postalCode: string;
@@ -76,7 +77,8 @@ export class ListAddressDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient, private dialog: MatDialog, private snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<ListAddressDialogComponent>
+    public dialogRef: MatDialogRef<ListAddressDialogComponent>,
+    private addressService: AddressService,
   ) {
     this.user = { ...data.user };
   }
@@ -84,114 +86,47 @@ export class ListAddressDialogComponent {
   displayedColumns: string[] = ['id', 'postalCode', 'city', 'street', 'state', 'actions'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  ngOnInit(): void {
-    this.loadAddress();
+  async ngOnInit(): Promise<void> {
+    this.dataSource.data = await this.addressService.loadAddress(this.user?.id)
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
-  private getToken(): string | null {
-    return sessionStorage.getItem('auth-token');
-  }
 
-  private createHeaders(): HttpHeaders {
-    const token = this.getToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  }
-
-  private loadAddress(): void {
-    const headers = this.createHeaders();
-    if (headers) {
-      this.getAddress().subscribe((data: any) => {
-        this.dataSource.data = data.content;
-      });
-    }
-  }
-
-  private getAddress(): Observable<Address[]> {
-    const headers = this.createHeaders();
-    return this.http.get<any>(`http://localhost:8080/api/address/${this.user?.id}`, {
-      headers
-    });
-  }
   onCancel() {
     this.dialogRef.close(null);
 
   }
-
   public deleteAddress(address: Address) {
-    this.openConfirmDialog(address);
-  }
-  private openEditDialog(address: Address): void {
-    const dialogRef = this.dialog.open(EditAddressDialogComponent, {
-      width: '1000px',
-      data: { address }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const headers = this.createHeaders();
-
-        const body = {
-          city: result.city,
-          postalCode: result.postalCode,
-          state: result.state,
-          street: result.street,
-          user_id: result.user_id,
-        };
-
-        this.http.put(`http://localhost:8080/api/address/${address.id}`, body, { headers }).subscribe({
-          next: () => {
-            this.loadAddress();
-            this.showSuccessToast('Endereço editado com sucesso!');
-          },
-          error: () => {
-            this.showErrorToast('Erro ao editar Endereço. Por favor, tente novamente mais tarde.');
-          }
-        });
-      }
-    });
-  }
-
-  public editAddress(address: Address) {
-    this.openEditDialog(address);
-  }
-  private openConfirmDialog(address: Address): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         message: 'Tem certeza de que deseja excluir este endereço?'
       }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const headers = this.createHeaders();
-
-        this.http.delete(`http://localhost:8080/api/address/${address?.id}`, { headers }).subscribe({
-          next: () => {
-            this.dataSource.data = this.dataSource.data.filter(u => u.id !== address.id);
-            this.showSuccessToast('Endereço excluído com sucesso!');
-          },
-          error: () => {
-            this.showErrorToast('Erro ao excluir Endereço. Por favor, tente novamente mais tarde.');
-          }
-        });
+    dialogRef.afterClosed().subscribe(async result => {
+      if(result){
+        const data: boolean = await this.addressService.deleteAddress(address);
+        if (data) {
+          this.dataSource.data = await this.addressService.loadAddress(this.user?.id);
+        }
       }
     });
   }
-  private showSuccessToast(message: string): void {
-    this.snackBar.open(message, 'Fechar', {
-      duration: 3000,
-      panelClass: ['success-toast']
+  public editAddress(address: Address) {
+    const dialogRef = this.dialog.open(EditAddressDialogComponent, {
+      width: '1000px',
+      data: { address }
     });
-  }
+    dialogRef.afterClosed().subscribe(result => {
 
-  private showErrorToast(message: string): void {
-    this.snackBar.open(message, 'Fechar', {
-      duration: 3000,
-      panelClass: ['error-toast']
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      if(result){
+        const data: boolean = await this.addressService.editAddress(result);
+        if (data) {
+          this.dataSource.data = await this.addressService.loadAddress(this.user?.id);
+        }
+      }
     });
   }
 }

@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -9,8 +8,6 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {LayoutGeralComponent} from "../../layout-geral/layout-geral.component";
@@ -20,7 +17,8 @@ import {EditUserDialogComponent} from "../../edit-user-dialog/edit-user-dialog.c
 import {ListAddressDialogComponent} from "../../list-address-dialog/list-address-dialog.component";
 import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
-import {UtilService} from "../../service/util.service";
+import {AddressService} from "../../service/address.service";
+import {UsersService} from "../../service/users.service";
 
 interface User {
   id: number;
@@ -62,152 +60,67 @@ export class UsuarioComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private http: HttpClient,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    private utilService: UtilService) {}
+    private addressService: AddressService,
+    private userService: UsersService) {}
 
-  ngOnInit(): void {
-    this.loadUsers();
+  async ngOnInit(): Promise<void> {
+    this.dataSource.data = await this.userService.loadUsers()
   }
-
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
-
-  private loadUsers(): void {
-    const headers = this.utilService.createHeaders();
-    if (headers) {
-      this.getUsers().subscribe(data => {
-        this.dataSource.data = data.content;
-      });
-    }
-  }
-
-  private getUsers(): Observable<any> {
-    const headers = this.utilService.createHeaders();
-    return this.http.get<any>('http://localhost:8080/api/users', {
-      headers
-    });
-  }
-
-  private openEditDialog(user: User): void {
+  editUser(user: User): void {
     const dialogRef = this.dialog.open(EditUserDialogComponent, {
       width: '1000px',
       data: { user }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const headers = this.utilService.createHeaders();
-
-        const body = {
-          name: result.name,
-          login: result.login,
-          email: result.email
-        };
-
-        this.http.put(`http://localhost:8080/api/users/${user.id}`, body, { headers }).subscribe({
-          next: () => {
-            this.loadUsers();
-            this.showSuccessToast('Usuário editado com sucesso!');
-          },
-          error: () => {
-            this.showErrorToast('Erro ao editar usuário. Por favor, tente novamente mais tarde.');
-          }
-        });
-      }
-    });
-  }
-  private openListAddressDialog(user: User): void {
-    const dialogRef = this.dialog.open(ListAddressDialogComponent, {
-      width: '1000px',
-      data: { user }
-    });
-
-  }
-  private openCreateAddressDialog(user: User): void {
-    const dialogRef = this.dialog.open(CreateAddressDialogComponent, {
-      width: '1000px',
-      data: { user }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const headers = this.utilService.createHeaders();
-        console.log(result);
-        const body = {
-          postalCode: result.cep,
-          state: result.estado,
-          street: result.rua,
-          city: result.cidade,
-          user_id: user.id
-        };
-
-        this.http.post(`http://localhost:8080/api/address`, body, { headers }).subscribe({
-          next: () => {
-            this.loadUsers();
-            this.showSuccessToast('Endereço cadastrado com sucesso!');
-          },
-          error: () => {
-            this.showErrorToast('Erro ao cadastrar. Por favor, tente novamente mais tarde.');
-          }
-        });
+    dialogRef.afterClosed().subscribe(async result => {
+      if(result){
+        const data: boolean = await this.userService.editUser(result);
+        if (data) {
+          this.dataSource.data = await this.userService.loadUsers();
+        }
       }
     });
   }
 
-  private openConfirmDialog(user: User): void {
+  deleteUser(user: User): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         message: 'Tem certeza de que deseja excluir este usuário?'
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const headers = this.utilService.createHeaders();
-
-        this.http.delete(`http://localhost:8080/api/users/${user.id}`, { headers }).subscribe({
-          next: () => {
-            this.dataSource.data = this.dataSource.data.filter(u => u.id !== user.id);
-            this.showSuccessToast('Usuário excluído com sucesso!');
-          },
-          error: () => {
-            this.showErrorToast('Erro ao excluir usuário. Por favor, tente novamente mais tarde.');
-          }
-        });
+    dialogRef.afterClosed().subscribe(async result => {
+      if(result){
+        const data: boolean = await this.userService.deleteUser(user);
+        if (data) {
+          this.dataSource.data = await this.userService.loadUsers();
+        }
       }
     });
   }
 
-  private showSuccessToast(message: string): void {
-    this.snackBar.open(message, 'Fechar', {
-      duration: 3000,
-      panelClass: ['success-toast']
+  viewAddress(user: User): void {
+    const dialogRef = this.dialog.open(ListAddressDialogComponent, {
+      width: '1000px',
+      data: { user }
     });
   }
-
-  private showErrorToast(message: string): void {
-    this.snackBar.open(message, 'Fechar', {
-      duration: 3000,
-      panelClass: ['error-toast']
+  createAddress(user: User): void {
+    const dialogRef = this.dialog.open(CreateAddressDialogComponent, {
+      width: '1000px',
+      data: { user }
     });
-  }
 
-  editarUsuario(user: User): void {
-    this.openEditDialog(user);
-  }
+    dialogRef.afterClosed().subscribe(async result => {
 
-  excluirUsuario(user: User): void {
-    this.openConfirmDialog(user);
-  }
-
-  visualizarEnderecos(user: User): void {
-    this.openListAddressDialog(user);
-  }
-  cadastrarEnderecos(user: User): void {
-    this.openCreateAddressDialog(user);
+      const data: boolean = this.addressService.createAddress(result, user?.id);
+      if (data) {
+        this.dataSource.data = await this.userService.loadUsers();
+      }
+    });
   }
 }
