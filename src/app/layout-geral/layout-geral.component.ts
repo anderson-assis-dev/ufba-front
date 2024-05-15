@@ -45,6 +45,10 @@ export class LayoutGeralComponent {
     this.router.navigate(['enderecos']);
 
   }
+  public arquivos(){
+    this.router.navigate(['arquivos']);
+
+  }
   private getToken(): string | null {
     return sessionStorage.getItem('auth-token');
   }

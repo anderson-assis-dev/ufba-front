@@ -3,6 +3,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {CadastroComponent} from "./pages/cadastro/cadastro.component";
 import {UsuarioComponent} from "./pages/usuario/usuario.component";
 import {EnderecosComponent} from "./pages/enderecos/enderecos.component";
+import {FilesComponent} from "./pages/files/files.component";
 
 export const routes: Routes = [
   {
@@ -21,5 +22,9 @@ export const routes: Routes = [
   {
     path: "enderecos",
     component: EnderecosComponent
+  },
+  {
+    path: "arquivos",
+    component: FilesComponent
   }
 ];
