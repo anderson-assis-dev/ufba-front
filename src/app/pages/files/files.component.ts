@@ -27,6 +27,8 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {ViewFileDialogComponent} from "../../view-file-dialog/view-file-dialog.component";
+import {UploadFileComponent} from "../../upload-file/upload-file.component";
+import {FileSystemFileEntry} from "ngx-file-drop";
 interface File {
   id: number;
   fileName: string;
@@ -110,8 +112,23 @@ export class FilesComponent implements OnInit {
     });
   }
 
-  createFile(data: File): void {
-    alert("Em dev")
+
+
+  uploadFiles(data: any | null): void {
+    const dialogRef = this.dialog.open(UploadFileComponent, {
+      width: '1000px',
+      data: { data }
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      console.log(result);
+      if(result){
+        const data: boolean = await this.fileService.uploadFile(result, 13);
+        if (data) {
+          this.dataSource.data = await this.fileService.loadFiles(13);
+        }
+      }
+    });
   }
 
 }

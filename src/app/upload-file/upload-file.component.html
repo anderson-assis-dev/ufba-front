@@ -1,0 +1,30 @@
+<mat-dialog-content class="mat-typography">
+  <ngx-file-drop dropZoneLabel="Arraste os arquivos aqui ou clique para selecionar"
+                 (onFileDrop)="dropped($event)"
+                 (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+      <div class="dropzone-content" (click)="openFileSelector()">
+        <p>Arraste os arquivos aqui ou clique para selecionar</p>
+      </div>
+    </ng-template>
+  </ngx-file-drop>
+
+  <div *ngIf="previews.length > 0" class="file-list">
+    <mat-card *ngFor="let preview of previews; let i = index" class="file-card">
+      <mat-card-content>
+        <img *ngIf="preview.type === 'image'" [src]="preview.url" class="thumbnail" />
+        <iframe *ngIf="preview.type === 'pdf'" [src]="preview.url" class="thumbnail"></iframe>
+        <div *ngIf="preview.type === 'other'" class="no-preview">No preview available</div>
+      </mat-card-content>
+      <button mat-icon-button (click)="removeFile(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="uploadFiles()" cdkFocusInitial>Salvar</button>
+
+  <button mat-button mat-dialog-close (click)="close()">Fechar</button>
+</mat-dialog-actions>

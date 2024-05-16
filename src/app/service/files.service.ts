@@ -29,8 +29,6 @@ export class FilesService {
   }
   public getfile(id: number): Promise<boolean> {
     const headers = this.utilService.createHeaders();
-
-
     return new Promise((resolve, reject) => {
       this.http.get(`${this.endpoint}/${id}`, { headers }).subscribe({
         next: () => {
@@ -44,6 +42,25 @@ export class FilesService {
       });
     });
   }
+  uploadFile(data: any, user_id : number): any {
+    const headers = this.utilService.createHeaders();
+
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.endpoint}/upload/${user_id}`, data, { headers }).subscribe({
+        next: () => {
+          this.utilService.showSuccessToast('Upload realizado');
+          resolve(true);
+        },
+        error: (error) => {
+          this.utilService.showErrorToast('Erro ao submeter arquivo. Por favor, tente novamente mais tarde.');
+          reject(error);
+        }
+      });
+    });
+
+
+  }
+
   public deleteFile(id: number): Promise<boolean> {
     const headers = this.utilService.createHeaders();
 
