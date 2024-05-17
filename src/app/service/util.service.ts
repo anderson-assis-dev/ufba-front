@@ -13,6 +13,10 @@ export class UtilService {
     return sessionStorage.getItem('auth-token');
   }
 
+  public getUserId(): string | null | number {
+    return sessionStorage.getItem('id');
+  }
+
   public createHeaders(): HttpHeaders {
     const token = this.getToken();
     return new HttpHeaders({

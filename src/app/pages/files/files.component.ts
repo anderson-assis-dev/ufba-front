@@ -80,10 +80,10 @@ export class FilesComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fileService: FilesService
+
   ) {}
   async ngOnInit(): Promise<void> {
-    this.dataSource.data = await this.fileService.loadFiles(13)
-    console.log(this.dataSource.data)
+    this.dataSource.data = await this.fileService.loadFiles()
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -99,7 +99,7 @@ export class FilesComponent implements OnInit {
       if(result){
         const data: boolean = await this.fileService.deleteFile(id);
         if (data) {
-          this.dataSource.data = await this.fileService.loadFiles(13);
+          this.dataSource.data = await this.fileService.loadFiles();
         }
       }
     });
@@ -123,9 +123,9 @@ export class FilesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       console.log(result);
       if(result){
-        const data: boolean = await this.fileService.uploadFile(result, 13);
+        const data: boolean = await this.fileService.uploadFile(result);
         if (data) {
-          this.dataSource.data = await this.fileService.loadFiles(13);
+          this.dataSource.data = await this.fileService.loadFiles();
         }
       }
     });

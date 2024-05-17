@@ -9,7 +9,7 @@
       <button (click)="enderecos()"  class="button-secondary">Endereços</button>
     </div>
     <div class="button-wrapper" >
-      <button (click)="arquivos()"  class="button-secondary">Arquivos</button>
+      <button (click)="arquivos()" *ngIf="showItemAdmin" class="button-secondary">Arquivos</button>
     </div>
     <div class="button-wrapper">
       <button (click)="sair()"  class="button-secondary">Sair</button>

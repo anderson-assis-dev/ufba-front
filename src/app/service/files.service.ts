@@ -6,17 +6,18 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class FilesService {
-  endpoint: string = "http://localhost:8080/api/files";
-
   constructor(
     private utilService: UtilService,
     private http: HttpClient
   ) { }
-  public loadFiles(user_id: number): Promise<any> {
+  endpoint: string = "http://localhost:8080/api/files";
+  user_id: string | number | null = this.utilService.getUserId()
+
+  public loadFiles(): Promise<any> {
     const headers = this.utilService.createHeaders();
 
     return new Promise((resolve, reject) => {
-      this.http.get<any>(`${this.endpoint}/user/${user_id}`, { headers }).subscribe({
+      this.http.get<any>(`${this.endpoint}/user/${this.user_id}`, { headers }).subscribe({
         next: (data) => {
           console.log(data)
           resolve(data?.content);
@@ -42,11 +43,11 @@ export class FilesService {
       });
     });
   }
-  uploadFile(data: any, user_id : number): any {
+  uploadFile(data: any): any {
     const headers = this.utilService.createHeaders();
 
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.endpoint}/upload/${user_id}`, data, { headers }).subscribe({
+      this.http.post(`${this.endpoint}/upload/${this.user_id}`, data, { headers }).subscribe({
         next: () => {
           this.utilService.showSuccessToast('Upload realizado');
           resolve(true);
