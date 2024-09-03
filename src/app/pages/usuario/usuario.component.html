@@ -28,16 +28,20 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Ações </th>
           <td mat-cell *matCellDef="let user">
-            <button mat-icon-button color="primary" (click)="viewAddress(user)">
+            <button mat-icon-button color="primary"         #tooltip="matTooltip"
+                    matTooltip="Visualizar Endereço" (click)="viewAddress(user)">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button mat-icon-button color="primary" (click)="createAddress(user)">
+            <button mat-icon-button         #tooltip="matTooltip"
+                    matTooltip="Adicionar Endereço" color="primary" (click)="createAddress(user)">
               <mat-icon>add</mat-icon>
             </button>
-            <button mat-icon-button color="accent" (click)="editUser(user)">
+            <button mat-icon-button color="accent"         #tooltip="matTooltip"
+                    matTooltip="Editar Usuário" (click)="editUser(user)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="deleteUser(user)">
+            <button mat-icon-button color="warn"         #tooltip="matTooltip"
+                    matTooltip="Excluir Usuário" (click)="deleteUser(user)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

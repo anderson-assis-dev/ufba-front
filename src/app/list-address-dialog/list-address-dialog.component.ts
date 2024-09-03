@@ -31,6 +31,7 @@ import {EditAddressDialogComponent} from "../edit-address-dialog/edit-address-di
 import {MatPaginator} from "@angular/material/paginator";
 import {NgIf} from "@angular/common";
 import {AddressService} from "../service/address.service";
+import {MatTooltip} from "@angular/material/tooltip";
 interface Address {
   id: number;
   postalCode: string;
@@ -42,32 +43,33 @@ interface Address {
 @Component({
   selector: 'app-list-address-dialog',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatButton,
-    MatCard,
-    MatCardContent,
-    MatDialogActions,
-    MatDialogClose,
-    MatDialogContent,
-    MatFormField,
-    MatIcon,
-    MatInput,
-    MatLabel,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatIconButton,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatHeaderCellDef,
-    MatPaginator,
-    NgIf
-  ],
+    imports: [
+        FormsModule,
+        MatButton,
+        MatCard,
+        MatCardContent,
+        MatDialogActions,
+        MatDialogClose,
+        MatDialogContent,
+        MatFormField,
+        MatIcon,
+        MatInput,
+        MatLabel,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatIconButton,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        MatHeaderCellDef,
+        MatPaginator,
+        NgIf,
+        MatTooltip
+    ],
   templateUrl: './list-address-dialog.component.html',
   styleUrl: './list-address-dialog.component.scss'
 })

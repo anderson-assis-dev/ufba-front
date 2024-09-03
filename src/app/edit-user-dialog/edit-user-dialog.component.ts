@@ -15,28 +15,30 @@ import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatGridList} from "@angular/material/grid-list";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-edit-user-dialog',
   templateUrl: './edit-user-dialog.component.html',
   standalone: true,
-  imports: [
-    MatFormField,
-    MatButton,
-    FormsModule,
-    MatDialogContent,
-    MatDialogTitle,
-    MatInput,
-    MatDialogActions,
-    MatDialogClose,
-    MatIcon,
-    MatHint,
-    MatLabel,
-    MatCard,
-    MatCardContent,
-    MatGridList,
-    MatDialogContainer
-  ],
+    imports: [
+        MatFormField,
+        MatButton,
+        FormsModule,
+        MatDialogContent,
+        MatDialogTitle,
+        MatInput,
+        MatDialogActions,
+        MatDialogClose,
+        MatIcon,
+        MatHint,
+        MatLabel,
+        MatCard,
+        MatCardContent,
+        MatGridList,
+        MatDialogContainer,
+        MatTooltip
+    ],
   styleUrls: ['./edit-user-dialog.component.scss']
 })
 export class EditUserDialogComponent {

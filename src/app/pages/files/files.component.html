@@ -1,7 +1,8 @@
 <app-layout-geral title="Menu" primaryBtnText="Arquivos">
   <mat-card  style="width: 90%;">
     <mat-card-content>
-      <button mat-icon-button color="primary" (click)="uploadFiles(null)">
+      <button mat-icon-button color="primary"         #tooltip="matTooltip"
+              matTooltip="Enviar arquivo" (click)="uploadFiles(null)">
         <mat-icon>add</mat-icon>
       </button>
     </mat-card-content>
@@ -24,12 +25,14 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Ações </th>
           <td mat-cell *matCellDef="let file">
-            <button mat-icon-button color="primary" (click)="viewFile(file)">
+            <button mat-icon-button color="primary" (click)="viewFile(file)"         #tooltip="matTooltip"
+                    matTooltip="Visualizar Arquivo">
               <mat-icon>visibility</mat-icon>
             </button>
 
 
-            <button mat-icon-button color="warn" (click)="deleteFile(file?.id)">
+            <button mat-icon-button color="warn" (click)="deleteFile(file?.id)"         #tooltip="matTooltip"
+                    matTooltip="Excluir Arquivo">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

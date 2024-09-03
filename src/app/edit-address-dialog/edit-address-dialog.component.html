@@ -26,6 +26,8 @@
   </mat-card>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close (click)="onCancel()">Cancelar</button>
-  <button mat-button (click)="onSave()" cdkFocusInitial>Salvar</button>
+  <button mat-button mat-dialog-close         #tooltip="matTooltip"
+          matTooltip="Cancelar Operação" (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onSave()"         #tooltip="matTooltip"
+          matTooltip="Salvar dados" cdkFocusInitial>Salvar</button>
 </mat-dialog-actions>

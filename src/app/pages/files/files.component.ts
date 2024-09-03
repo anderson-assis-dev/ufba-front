@@ -25,10 +25,11 @@ import {
 } from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatIcon} from "@angular/material/icon";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {ViewFileDialogComponent} from "../../view-file-dialog/view-file-dialog.component";
 import {UploadFileComponent} from "../../upload-file/upload-file.component";
 import {FileSystemFileEntry} from "ngx-file-drop";
+import {MatTooltip} from "@angular/material/tooltip";
 interface File {
   id: number;
   fileName: string;
@@ -42,33 +43,35 @@ interface File {
 
   templateUrl: './files.component.html',
   styleUrl: './files.component.scss',
-  imports: [
-    FileUploadModule,
-    MatCard,
-    LayoutGeralComponent,
-    ButtonModule,
-    BadgeModule,
-    ProgressBarModule,
-    ToastModule,
-    HttpClientModule,
-    CommonModule,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatIcon,
-    MatIconButton,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatHeaderCellDef
-  ],
+    imports: [
+        FileUploadModule,
+        MatCard,
+        LayoutGeralComponent,
+        ButtonModule,
+        BadgeModule,
+        ProgressBarModule,
+        ToastModule,
+        HttpClientModule,
+        CommonModule,
+        MatCardContent,
+        MatCardHeader,
+        MatCardTitle,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatIcon,
+        MatIconButton,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        MatHeaderCellDef,
+        MatButton,
+        MatTooltip
+    ],
   providers: [MessageService]
 })
 export class FilesComponent implements OnInit {

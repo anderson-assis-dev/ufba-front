@@ -16,7 +16,8 @@
         <iframe *ngIf="preview.type === 'pdf'" [src]="preview.url" class="thumbnail"></iframe>
         <div *ngIf="preview.type === 'other'" class="no-preview">No preview available</div>
       </mat-card-content>
-      <button mat-icon-button (click)="removeFile(i)">
+      <button         #tooltip="matTooltip"
+                      matTooltip="Remover arquivo" mat-icon-button (click)="removeFile(i)">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card>
@@ -24,7 +25,9 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="uploadFiles()" cdkFocusInitial>Salvar</button>
+  <button mat-button         #tooltip="matTooltip"
+          matTooltip="Salvar Arquivos" (click)="uploadFiles()" cdkFocusInitial>Salvar</button>
 
-  <button mat-button mat-dialog-close (click)="close()">Fechar</button>
+  <button mat-button mat-dialog-close         #tooltip="matTooltip"
+          matTooltip="Cancelar" (click)="close()">Fechar</button>
 </mat-dialog-actions>

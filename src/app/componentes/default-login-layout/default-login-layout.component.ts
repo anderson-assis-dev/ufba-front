@@ -2,13 +2,17 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {NgIf} from "@angular/common";
+import {MatTooltip} from "@angular/material/tooltip";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-default-login-layout',
   standalone: true,
   imports: [
     MatProgressSpinner,
-    NgIf
+    NgIf,
+    MatTooltip,
+    MatButton
   ],
   templateUrl: './default-login-layout.component.html',
   styleUrl: './default-login-layout.component.scss'

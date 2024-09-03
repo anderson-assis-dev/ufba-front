@@ -4,6 +4,8 @@
   {{ data.message }}
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close mat-raised-button (click)="onCancel()">Cancelar</button>
-  <button mat-button mat-dialog-close mat-raised-button cdkFocusInitial (click)="onConfirm()">Confirmar</button>
+  <button mat-button mat-dialog-close mat-raised-button  #tooltip="matTooltip"
+          matTooltip="Cancelar" (click)="onCancel()">Cancelar</button>
+  <button mat-button mat-dialog-close  #tooltip="matTooltip"
+          matTooltip="Salvar Dados" mat-raised-button cdkFocusInitial (click)="onConfirm()">Confirmar</button>
 </mat-dialog-actions>

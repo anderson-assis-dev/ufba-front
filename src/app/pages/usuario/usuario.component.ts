@@ -12,13 +12,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {LayoutGeralComponent} from "../../layout-geral/layout-geral.component";
 import {MatIcon} from "@angular/material/icon";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {EditUserDialogComponent} from "../../edit-user-dialog/edit-user-dialog.component";
 import {ListAddressDialogComponent} from "../../list-address-dialog/list-address-dialog.component";
 import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
 import {AddressService} from "../../service/address.service";
 import {UsersService} from "../../service/users.service";
+import {MatTooltip} from "@angular/material/tooltip";
 
 interface User {
   id: number;
@@ -32,26 +33,28 @@ interface User {
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
   standalone: true,
-  imports: [
-    MatCardContent,
-    MatCardTitle,
-    MatCardHeader,
-    MatCard,
-    LayoutGeralComponent,
-    MatTable,
-    MatHeaderCell,
-    MatColumnDef,
-    MatCell,
-    MatIcon,
-    MatHeaderRow,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatHeaderRowDef,
-    MatIconButton,
-    MatCellDef,
-    MatHeaderCellDef
-  ],
+    imports: [
+        MatCardContent,
+        MatCardTitle,
+        MatCardHeader,
+        MatCard,
+        LayoutGeralComponent,
+        MatTable,
+        MatHeaderCell,
+        MatColumnDef,
+        MatCell,
+        MatIcon,
+        MatHeaderRow,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatHeaderRowDef,
+        MatIconButton,
+        MatCellDef,
+        MatHeaderCellDef,
+        MatButton,
+        MatTooltip
+    ],
   styleUrls: ['./usuario.component.scss']
 })
 export class UsuarioComponent implements OnInit {

@@ -3,13 +3,17 @@ import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {NgIf} from "@angular/common";
+import {MatButton} from "@angular/material/button";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-layout-geral',
   standalone: true,
-  imports: [
-    NgIf
-  ],
+    imports: [
+        NgIf,
+        MatButton,
+        MatTooltip
+    ],
   templateUrl: './layout-geral.component.html',
   styleUrl: './layout-geral.component.scss'
 })

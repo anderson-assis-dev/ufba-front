@@ -6,24 +6,26 @@ import {NgForOf, NgIf} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {FilesService} from "../service/files.service";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
   standalone: true,
-  imports: [
-    MatCardContent,
-    MatDialogActions,
-    MatDialogClose,
-    MatCard,
-    NgIf,
-    MatDialogContent,
-    NgxFileDropModule,
-    NgForOf,
-    MatIcon,
-    MatIconButton,
-    MatButton
-  ],
+    imports: [
+        MatCardContent,
+        MatDialogActions,
+        MatDialogClose,
+        MatCard,
+        NgIf,
+        MatDialogContent,
+        NgxFileDropModule,
+        NgForOf,
+        MatIcon,
+        MatIconButton,
+        MatButton,
+        MatTooltip
+    ],
   styleUrls: ['./upload-file.component.scss']
 })
 export class UploadFileComponent {

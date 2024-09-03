@@ -9,5 +9,6 @@
   </mat-card>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close (click)="close()">Fechar</button>
+  <button mat-button         #tooltip="matTooltip"
+          matTooltip="Encerrar visualização" mat-dialog-close (click)="close()">Fechar</button>
 </mat-dialog-actions>

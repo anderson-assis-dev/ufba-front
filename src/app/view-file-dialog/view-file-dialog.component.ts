@@ -15,26 +15,28 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {NgIf, NgOptimizedImage} from "@angular/common";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-view-file-dialog',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatButton,
-    MatCard,
-    MatCardContent,
-    MatDialogActions,
-    MatDialogClose,
-    MatDialogContent,
-    MatFormField,
-    NgxExtendedPdfViewerModule,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule,
-    NgOptimizedImage,
-    NgIf
-  ],
+    imports: [
+        FormsModule,
+        MatButton,
+        MatCard,
+        MatCardContent,
+        MatDialogActions,
+        MatDialogClose,
+        MatDialogContent,
+        MatFormField,
+        NgxExtendedPdfViewerModule,
+        MatInput,
+        MatLabel,
+        ReactiveFormsModule,
+        NgOptimizedImage,
+        NgIf,
+        MatTooltip
+    ],
   templateUrl: './view-file-dialog.component.html',
   styleUrl: './view-file-dialog.component.scss'
 })

@@ -13,23 +13,25 @@ import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {AddressService} from "../service/address.service";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-edit-address-dialog',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatButton,
-    MatCard,
-    MatCardContent,
-    MatDialogActions,
-    MatDialogClose,
-    MatDialogContent,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule
-  ],
+    imports: [
+        FormsModule,
+        MatButton,
+        MatCard,
+        MatCardContent,
+        MatDialogActions,
+        MatDialogClose,
+        MatDialogContent,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        ReactiveFormsModule,
+        MatTooltip
+    ],
   templateUrl: './edit-address-dialog.component.html',
   styleUrl: './edit-address-dialog.component.scss'
 })

@@ -21,6 +21,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {CreateAddressDialogComponent} from "../../create-address-dialog/create-address-dialog.component";
 import {NgIf} from "@angular/common";
 import {UtilService} from "../../service/util.service";
+import {MatTooltip} from "@angular/material/tooltip";
 interface Address {
   id: number;
   postalCode: string;
@@ -32,28 +33,29 @@ interface Address {
 @Component({
   selector: 'app-enderecos',
   standalone: true,
-  imports: [
-    LayoutGeralComponent,
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatIcon,
-    MatIconButton,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatHeaderCellDef,
-    NgIf,
-    MatButton
-  ],
+    imports: [
+        LayoutGeralComponent,
+        MatCard,
+        MatCardContent,
+        MatCardHeader,
+        MatCardTitle,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatIcon,
+        MatIconButton,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        MatHeaderCellDef,
+        NgIf,
+        MatButton,
+        MatTooltip
+    ],
   templateUrl: './enderecos.component.html',
   styleUrl: './enderecos.component.scss'
 })

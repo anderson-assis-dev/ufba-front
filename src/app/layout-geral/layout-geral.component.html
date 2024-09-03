@@ -3,16 +3,20 @@
     <img src="assets/images/logo.png" width="50">
     <h2>{{title}} </h2>
     <div class="button-wrapper" *ngIf="showItemAdmin">
-      <button (click)="usuarios()"  class="button-secondary">Usuários</button>
+      <button (click)="usuarios()"         #tooltip="matTooltip"
+              matTooltip="Visulizar Usuários"  class="button-secondary">Usuários</button>
     </div>
     <div class="button-wrapper"  *ngIf="showItemUser">
-      <button (click)="enderecos()"  class="button-secondary">Endereços</button>
+      <button (click)="enderecos()"         #tooltip="matTooltip"
+              matTooltip="Visualizar Endereços"  class="button-secondary">Endereços</button>
     </div>
     <div class="button-wrapper" >
-      <button (click)="arquivos()" *ngIf="showItemAdmin" class="button-secondary">Arquivos</button>
+      <button (click)="arquivos()"         #tooltip="matTooltip"
+              matTooltip="Visuliar arquivos" *ngIf="showItemAdmin" class="button-secondary">Arquivos</button>
     </div>
     <div class="button-wrapper">
-      <button (click)="sair()"  class="button-secondary">Sair</button>
+      <button (click)="sair()"          #tooltip="matTooltip"
+              matTooltip="Sair do Sistema" class="button-secondary">Sair</button>
     </div>
   </section>
   <section class="main-section">
