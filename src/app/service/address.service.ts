@@ -43,7 +43,7 @@ export class AddressService {
         state: data.estado,
         street: data.rua,
         city: data.cidade,
-        user_id: user_id
+        userId: user_id
       };
 
       this.http.post(this.endpoint, body, { headers }).subscribe({
@@ -64,6 +64,7 @@ export class AddressService {
     return new Promise((resolve, reject) => {
       this.http.get<any>(`${this.endpoint}/${user_id}`, { headers }).subscribe({
         next: (data) => {
+          console.log(data)
           resolve(data?.content);
         },
         error: (error) => {
@@ -79,9 +80,8 @@ export class AddressService {
       postalCode: data.postalCode,
       state: data.state,
       street: data.street,
-      user_id: data.user_id,
+      userId: data.userId,
     };
-
     return new Promise((resolve, reject) => {
       this.http.put(`${this.endpoint}/${data.id}`, body, { headers }).subscribe({
         next: () => {

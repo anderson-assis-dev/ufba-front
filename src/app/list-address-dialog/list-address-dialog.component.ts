@@ -119,11 +119,10 @@ export class ListAddressDialogComponent {
       width: '1000px',
       data: { address }
     });
-    dialogRef.afterClosed().subscribe(result => {
-
-    });
     dialogRef.afterClosed().subscribe(async result => {
       if(result){
+        result.userId = this.user.id
+        console.log(result)
         const data: boolean = await this.addressService.editAddress(result);
         if (data) {
           this.dataSource.data = await this.addressService.loadAddress(this.user?.id);

@@ -1,6 +1,7 @@
 <mat-dialog-content class="mat-typography">
   <mat-card>
     <mat-card-content>  {{ titleFile }}</mat-card-content>
+    <mat-divider></mat-divider>
     <img *ngIf="showImage && !showPDF" [src]="base64" alt="Image Source">
     <ngx-extended-pdf-viewer *ngIf="showPDF" [src]="base64" height="600px"></ngx-extended-pdf-viewer>
 
